@@ -1,16 +1,14 @@
 #include <iostream>
 #include <string>
 #include<vector>
+#include "BigInt.h"
 
-#define max(a,b) ((a) > (b) ? (a) : (b))
 
-using namespace std;
-
-vector<unsigned int> add(vector<unsigned int> lhs, vector<unsigned int> rhs) {
+std::vector<unsigned int> add(std::vector<unsigned int> lhs, std::vector<unsigned int> rhs) {
     int length = max(lhs.size(), rhs.size());
     int carry = 0;
     int sumOfCol;
-    vector<unsigned int> result;
+    std::vector<unsigned int> result;
 
     while (lhs.size() < length) 
       {lhs.insert(lhs.begin(),0);}
@@ -31,10 +29,10 @@ vector<unsigned int> add(vector<unsigned int> lhs, vector<unsigned int> rhs) {
     return result;
 }
 
-vector<unsigned int> subtract(vector<unsigned int> lhs, vector<unsigned int> rhs) {
+std::vector<unsigned int> subtract(std::vector<unsigned int> lhs, std::vector<unsigned int> rhs) {
     int length = max(lhs.size(), rhs.size());
     int diff;
-    vector<unsigned int> result;
+    std::vector<unsigned int> result;
 
     while (lhs.size() < length) 
       {lhs.insert(lhs.begin(),0);}
@@ -64,13 +62,13 @@ vector<unsigned int> subtract(vector<unsigned int> lhs, vector<unsigned int> rhs
 }
 
 
-vector<unsigned int> multiply(vector<unsigned int> num1, vector<unsigned int> num2) 
+std::vector<unsigned int> multiply(std::vector<unsigned int> num1, std::vector<unsigned int> num2) 
 { 
     int len1 = num1.size(); 
     int len2 = num2.size(); 
     if (len1 == 0 || len2 == 0) 
       {return {0};}
-    vector<unsigned int> result(len1 + len2, 0);  
+    std::vector<unsigned int> result(len1 + len2, 0);  
     int i_n1 = 0;  
     int i_n2 = 0;  
     
@@ -102,13 +100,7 @@ vector<unsigned int> multiply(vector<unsigned int> num1, vector<unsigned int> nu
 } 
 
 
-class bigInteger
-{
-    public :
-    string representation;
-    vector <unsigned int> v;
-    short int signOfInteger;
-    void toInteger()
+    void bigInteger::toInteger()
     {
         if(representation[0]=='-' || signOfInteger==1)
         {
@@ -121,7 +113,7 @@ class bigInteger
         }
         int i=representation.size()-1;
         int number=0;
-        string r;
+        std::string r;
         for(i=representation.size()-1;i>=0;i-=4)
         {
             if(i<=3)
@@ -137,9 +129,9 @@ class bigInteger
             
         }
     }
-    void toString()
+    void bigInteger::toString()
         {
-            string res="";
+            std::string res="";
             int i;
             for(i=this->v.size()-1;i>=0;i--)
                 {
@@ -150,19 +142,18 @@ class bigInteger
                         {res.append("0");}
                     if(r < 1000 )
                         {res.append("0");}
-                    res.append(to_string(r));
+                    res.append(std::to_string(r));
                 }
                 this->representation=res;
         }
-    void displayNumber()
+    void bigInteger::displayNumber()
     {
         if(this->signOfInteger)
         {
-            cout<<"-";
+            std::cout<<"-";
         }
-        cout<<this->representation;
+        std::cout<<this->representation;
     }
-};
 
  bigInteger multiplyBigInteger( bigInteger a, bigInteger b)
  {
@@ -256,6 +247,7 @@ class bigInteger
  }
 int main() 
 {
+    using namespace std;
     bigInteger r1,r2,r3,r4;
     cin>>r1.representation>>r2.representation;
     r1.toInteger();
